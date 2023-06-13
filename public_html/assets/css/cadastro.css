@@ -1,0 +1,72 @@
+/* Define uma cor de fundo para a página */
+body {
+    background-color: #cd5c5c;
+  }
+  
+  /* Estiliza a div que contém o formulário */
+  .form-container {
+    width: 90%;
+    /* margin: 0 auto; */
+    margin: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #ccc;
+  }
+  
+  /* Estiliza os labels dos campos */
+  label {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 5px;
+  
+  
+   }
+  
+  /* Estiliza os campos de texto e seleção */
+  input {
+    /* width: 95%; */
+    /* padding-top: 20px;
+    padding-left: 20px; */
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+  }
+
+#nome {
+    width: 65%;
+
+  }
+  
+  Select {
+    /* width: 95%; */
+    /* padding-top: 20px;
+    margin-bottom: 10px; */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  
+  /* Estiliza o botão de envio */
+  input[type="submit"] {
+    width: 100%;
+    background-color: #db4e4e;
+    color: #fff;
+    font-size: 0.8em;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Define um hover para o botão de envio */
+  input[type="submit"]:hover {
+    background-color: #b63838;
+  }
+  
+  /* Estiliza os Fieldsets dos campos */
+  fieldset {
+      border-radius: 5px;
+      font-size:1.2em;
+  }

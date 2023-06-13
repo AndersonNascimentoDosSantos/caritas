@@ -1,0 +1,5 @@
+/docker/apache/logs*
+/docker/mysql/database/*
+**/setup/**
+*.pdf
+*.zip

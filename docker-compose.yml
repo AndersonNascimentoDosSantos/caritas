@@ -1,0 +1,88 @@
+version: "3.7"
+
+networks:
+  caritas-network:
+    driver: bridge
+
+services:
+  web:
+    build: ./docker
+    working_dir: /var/www
+    restart: always
+    container_name: caritas-api
+    networks:
+      - caritas-network
+    # depends_on:
+    # - mysql
+    # - postgres
+    # - redis
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/99-php.ini
+      - ./docker/apache/vhosts/localhost.conf:/etc/apache2/sites-available/000-default.conf
+      - ./docker/apache/vhosts/localhost-ssl.conf:/etc/apache2/sites-available/default-ssl.conf
+    environment:
+      - COMPOSER_ALLOW_SUPERUSER=1
+      - DOCUMENT_ROOT=/var/www/public_html
+      - APACHE_LOG_DIR=/var/www/docker/apache/logs
+
+  mysql:
+    image: mysql
+    restart: always
+    container_name: caritas-mysql
+    networks:
+      - caritas-network
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./docker/mysql/config:/etc/mysql/conf.d"
+      - "./docker/mysql/database:/var/lib/mysql"
+    environment:
+      - MYSQL_PASSWORD=310192
+      - MYSQL_ROOT_PASSWORD=310192
+      - MYSQL_DATABASE=caritas_db
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: caritas-phpmyadmin
+    networks:
+      - caritas-network
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+
+  #  postgres:
+  #    image: postgres:alpine
+  #    container_name: caritas-postgres
+  #    restart: always
+  #    networks:
+  #      - caritas-network
+  #    ports:
+  #      - '5432:5432'
+  #    volumes:
+  #      - './docker/postgres:/var/lib/postgresql/data'
+  #    environment:
+  #      - POSTGRES_USER=root
+  #      - POSTGRES_PASSWORD=root
+  #      - POSTGRES_DB=development
+
+  #  redis:
+  #    image: bitnami/redis:latest
+  #    restart: always
+  #    container_name: caritas-redis
+  #    volumes:
+  #      - ./docker/redis:/bitnami/redis/data
+  #    networks:
+  #      - caritas-network
+  #    environment:
+  #      - ALLOW_EMPTY_PASSWORD=no
+  #      - REDIS_PASSWORD=root
+  #    ports:
+  #      - '6379:6379'
